@@ -7,6 +7,7 @@ import { defineConfig, searchForWorkspaceRoot, splitVendorChunkPlugin } from "vi
 import dts from "vite-plugin-dts";
 
 export default defineConfig({
+  root: __dirname,
   cacheDir: "../../node_modules/.vite/ui",
 
   server: {
@@ -24,6 +25,9 @@ export default defineConfig({
   ],
 
   build: {
+    outDir: "../../dist/libs/ui",
+    reportCompressedSize: true,
+    commonjsOptions: { transformMixedEsModules: true },
     lib: {
       entry: "src/index.ts",
       name: "ui",
@@ -36,6 +40,11 @@ export default defineConfig({
   },
 
   test: {
+    reporters: ["default"],
+    coverage: {
+      reportsDirectory: "../../coverage/libs/ui",
+      provider: "v8",
+    },
     globals: true,
     environment: "jsdom",
     cache: { dir: "../../node_modules/.vitest" },

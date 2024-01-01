@@ -5,11 +5,15 @@ import react from "@vitejs/plugin-react-swc";
 import { defineConfig, searchForWorkspaceRoot, splitVendorChunkPlugin } from "vite";
 
 export default defineConfig({
+  root: __dirname,
   base: "/artboard/",
 
   cacheDir: "../../node_modules/.vite/artboard",
 
   build: {
+    outDir: "../../dist/apps/artboard",
+    reportCompressedSize: true,
+    commonjsOptions: { transformMixedEsModules: true },
     sourcemap: true,
   },
 

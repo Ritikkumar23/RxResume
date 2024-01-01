@@ -6,9 +6,13 @@ import react from "@vitejs/plugin-react-swc";
 import { defineConfig, searchForWorkspaceRoot, splitVendorChunkPlugin } from "vite";
 
 export default defineConfig({
+  root: __dirname,
   cacheDir: "../../node_modules/.vite/client",
 
   build: {
+    outDir: "../../dist/apps/client",
+    reportCompressedSize: true,
+    commonjsOptions: { transformMixedEsModules: true },
     sourcemap: true,
   },
 
@@ -32,6 +36,11 @@ export default defineConfig({
   ],
 
   test: {
+    reporters: ["default"],
+    coverage: {
+      reportsDirectory: "../../coverage/apps/client",
+      provider: "v8",
+    },
     globals: true,
     environment: "jsdom",
     cache: { dir: "../../node_modules/.vitest" },

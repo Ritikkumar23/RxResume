@@ -7,6 +7,7 @@ import { defineConfig, splitVendorChunkPlugin } from "vite";
 import dts from "vite-plugin-dts";
 
 export default defineConfig({
+  root: __dirname,
   cacheDir: "../../node_modules/.vite/hooks",
 
   plugins: [
@@ -20,6 +21,9 @@ export default defineConfig({
   ],
 
   build: {
+    outDir: "../../dist/libs/hooks",
+    reportCompressedSize: true,
+    commonjsOptions: { transformMixedEsModules: true },
     lib: {
       entry: "src/index.ts",
       name: "hooks",
@@ -32,6 +36,11 @@ export default defineConfig({
   },
 
   test: {
+    reporters: ["default"],
+    coverage: {
+      reportsDirectory: "../../coverage/libs/hooks",
+      provider: "v8",
+    },
     globals: true,
     cache: {
       dir: "../../node_modules/.vitest",
